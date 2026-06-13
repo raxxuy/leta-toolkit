@@ -14,7 +14,7 @@
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
           pname = "leta-toolkit";
-          version = "0.1.0";
+          version = "0.1.1";
           src = ./.;
           cargoLock = {
             lockFile = ./Cargo.lock;
@@ -27,6 +27,7 @@
             cargo
             rust-analyzer
             gcc
+            rustfmt
           ];
         };
       }

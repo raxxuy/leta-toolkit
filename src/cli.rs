@@ -11,6 +11,7 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Commands {
     Image(ImageCommands),
+    Screenshot(ScreenshotCommands),
 }
 
 #[derive(Parser)]
@@ -22,4 +23,15 @@ pub struct ImageCommands {
 #[derive(Subcommand)]
 pub enum ImageSubcommands {
     Cover(image::cover::CoverArgs),
+}
+
+#[derive(Parser)]
+pub struct ScreenshotCommands {
+    #[command(subcommand)]
+    pub command: ScreenshotSubcommands,
+}
+
+#[derive(Subcommand)]
+pub enum ScreenshotSubcommands {
+    Capture(crate::screenshot::capture::CaptureArgs),
 }

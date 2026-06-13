@@ -1,9 +1,13 @@
 [package]
 name = "leta-toolkit"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 
 [dependencies]
 anyhow = "1.0.102"
 clap = { version = "4.6.1", features = ["derive"] }
 image = "0.25.10"
+memmap2 = "0.9.10"
+rustix = { version = "1.1.4", features = ["fs", "shm"] }
+wayland-client = "0.31.14"
+wayland-protocols-wlr = { version = "0.3.12", features = ["client"] }
