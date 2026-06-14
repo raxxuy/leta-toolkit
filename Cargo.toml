@@ -1,6 +1,6 @@
 [package]
 name = "leta-toolkit"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 
 [dependencies]
@@ -11,3 +11,4 @@ memmap2 = "0.9.10"
 rustix = { version = "1.1.4", features = ["fs", "shm"] }
 wayland-client = "0.31.14"
 wayland-protocols-wlr = { version = "0.3.12", features = ["client"] }
+wl-clipboard-rs = "0.9.3"

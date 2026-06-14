@@ -6,11 +6,14 @@ use wayland_client::{protocol::{wl_registry, wl_output, wl_buffer, wl_shm}, Conn
 use wayland_protocols_wlr::screencopy::v1::client::{
     zwlr_screencopy_frame_v1, zwlr_screencopy_manager_v1
 };
+use wl_clipboard_rs::copy::{MimeType, Options, Source};
 
 #[derive(Args, Debug)]
 pub struct CaptureArgs {
     #[arg(long)]
-    output: PathBuf,
+    output: Option<PathBuf>,
+    #[arg(long)]
+    clipboard: bool,
     #[arg(long)]
     x: Option<i32>,
     #[arg(long)]
@@ -202,12 +205,28 @@ pub fn run(args: CaptureArgs) -> anyhow::Result<()> {
         event_queue.blocking_dispatch(&mut state)?;
     }
 
-    let mmap = state.mmap.as_ref().unwrap();
+    let pixels = state.mmap.as_ref().unwrap().to_vec();
     let width = state.width;
     let height = state.height;
 
-    let img = image::RgbaImage::from_raw_bgra(width, height, mmap.to_vec()).expect("failed to construct image");
-    img.save(&args.output)?;
+    if args.clipboard {
+        let img = image::RgbaImage::from_raw_bgra(width, height, pixels).expect("failed to construct image");
+
+        if let Some(output) = args.output {
+            img.save(&output)?;
+        }
+
+        let mut png_bytes: Vec<u8> = Vec::new();
+        img.write_to(&mut std::io::Cursor::new(&mut png_bytes), image::ImageFormat::Png)?;
+
+        let mut opts = Options::new();
+        opts.foreground(true);
+        opts.copy(Source::Bytes(png_bytes.into()), MimeType::Specific("image/png".to_string()))?;
+    } else {
+        let output = args.output.expect("--output required when not using --clipboard");
+        let img = image::RgbaImage::from_raw_bgra(width, height, pixels).expect("failed to construct image");
+        img.save(&output)?;
+    }
 
     Ok(())
 }
