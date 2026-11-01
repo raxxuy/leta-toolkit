@@ -14,7 +14,7 @@
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
           pname = "leta-toolkit";
-          version = "0.1.2";
+          version = "0.1.3";
           src = ./.;
           cargoLock = {
             lockFile = ./Cargo.lock;

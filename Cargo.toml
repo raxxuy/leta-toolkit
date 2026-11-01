@@ -1,14 +1,16 @@
 [package]
 name = "leta-toolkit"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 
 [dependencies]
-anyhow = "1.0.102"
-clap = { version = "4.6.1", features = ["derive"] }
+anyhow = "1.0.104"
+clap = { version = "4.6.7", features = ["derive"] }
 image = "0.25.10"
-memmap2 = "0.9.10"
-rustix = { version = "1.1.4", features = ["fs", "shm"] }
-wayland-client = "0.31.14"
+memmap2 = "0.9.12"
+rustix = { version = "1.1.6", features = ["fs", "shm"] }
+serde = { version = "1.0.229", features = ["derive"] }
+toml = "1.1.8"
+wayland-client = "0.31.15"
 wayland-protocols-wlr = { version = "0.3.12", features = ["client"] }
-wl-clipboard-rs = "0.9.3"
+wl-clipboard-rs = "0.9.5"

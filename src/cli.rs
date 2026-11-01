@@ -1,5 +1,5 @@
-use clap::{Parser, Subcommand};
 use crate::image;
+use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 #[command(version, about)]
@@ -12,6 +12,7 @@ pub struct Cli {
 pub enum Commands {
     Image(ImageCommands),
     Screenshot(ScreenshotCommands),
+    Palette(crate::palette::generate::PaletteArgs),
 }
 
 #[derive(Parser)]

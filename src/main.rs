@@ -1,5 +1,6 @@
 mod cli;
 mod image;
+mod palette;
 mod screenshot;
 
 use clap::Parser;
@@ -15,6 +16,7 @@ fn main() -> anyhow::Result<()> {
         Commands::Screenshot(s) => match s.command {
             ScreenshotSubcommands::Capture(args) => screenshot::capture::run(args)?,
         },
+        Commands::Palette(args) => palette::generate::run(args)?,
     }
 
     Ok(())
